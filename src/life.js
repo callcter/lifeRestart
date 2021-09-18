@@ -127,9 +127,13 @@ class Life {
         );
     }
 
+    // 天赋生成方法
     talentRandom() {
+        // 从本地缓存取 times
         const times = this.#property.get(this.#property.TYPES.TMS);
+        // 从本地缓存取 达成的成就数量
         const achievement = this.#property.get(this.#property.TYPES.CACHV);
+        // 生成天赋
         return this.#talent.talentRandom(this.getLastExtendTalent(), { times, achievement });
     }
 
@@ -137,6 +141,7 @@ class Life {
         this.#property.set(this.#property.TYPES.EXT, talentId);
     }
 
+    // 从本地缓存取 extendTalent 继承天赋
     getLastExtendTalent() {
         return this.#property.get(this.#property.TYPES.EXT);
     }

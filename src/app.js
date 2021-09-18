@@ -208,8 +208,10 @@ class App{
             .click(()=>{
                 talentPage.find('#random').hide();
                 const ul = talentPage.find('#talents');
+                // 随机生成初始天赋
                 this.#life.talentRandom()
                     .forEach(talent=>{
+                        console.log(talent);
                         const li = createTalent(talent);
                         ul.append(li);
                         li.click(()=>{

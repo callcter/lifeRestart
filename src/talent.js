@@ -61,19 +61,29 @@ class Talent {
     talentRandom(include, {times = 0, achievement = 0} = {}) {
         const rate = { 1:100, 2:10, 3:1, };
         const rateAddition = { 1:1, 2:1, 3:1, };
+        // 根据 times 获得 rate
         const timesRate = getRate('times', times);
+        // 根据 achievement 获得 rate
         const achievementRate = getRate('achievement', achievement);
 
+        // times 决定了 rateAddition.2
         for(const grade in timesRate)
             rateAddition[grade] += timesRate[grade] - 1;
 
+        // achievement 决定了 rateAddition.3
         for(const grade in achievementRate)
             rateAddition[grade] += achievementRate[grade] - 1;
 
+        /*
+         * rate.1 = 100
+         * rate.2 = 10 * rateAddition.2
+         * rate.3 = 1 * rateAddition.3
+         */
         for(const grade in rateAddition)
             rate[grade] *= rateAddition[grade];
 
         const randomGrade = () => {
+            // [0 - 1000) 的随机数
             let randomNumber = Math.floor(Math.random() * 1000);
             if((randomNumber -= rate[3]) < 0) return 3;
             if((randomNumber -= rate[2]) < 0) return 2;
@@ -89,14 +99,17 @@ class Talent {
                 include = { grade, name, description, id };
                 continue;
             }
-            if(!talentList[grade]) talentList[grade] = [{ grade, name, description, id }];
-            else talentList[grade].push({ grade, name, description, id });
+            if(!talentList[grade]) {
+                talentList[grade] = [{ grade, name, description, id }];
+            } else {
+                talentList[grade].push({ grade, name, description, id });
+            }
         }
 
         return new Array(10)
             .fill(1).map((v, i)=>{
                 if(!i && include) return include;
-                let grade = randomGrade();
+                let grade = 3; // randomGrade();
                 while(talentList[grade].length == 0) grade--;
                 const length = talentList[grade].length;
 

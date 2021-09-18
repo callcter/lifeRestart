@@ -134,6 +134,7 @@ class Property {
         this.#data[this.TYPES.HSPR] = this.get(this.TYPES.SPR);
     }
 
+    // 从属性中取值
     get(prop) {
         switch(prop) {
             case this.TYPES.AGE:
@@ -175,6 +176,7 @@ class Property {
                 const HSPR = this.get(this.TYPES.HSPR);
                 return Math.floor(sum(HCHR, HINT, HSTR, HMNY, HSPR)*2 + HAGE/2);
             case this.TYPES.TMS:
+                // 返回次数，如果本地存了，就从本地取
                 return this.lsget('times') || 0;
             case this.TYPES.EXT:
                 return this.lsget('extendTalent') || null;
@@ -357,6 +359,7 @@ class Property {
         )
     }
 
+    // 从 localStorage 中取值
     lsget(key) {
         const data = localStorage.getItem(key);
         if(data === null) return;
