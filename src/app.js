@@ -195,7 +195,7 @@ class App{
             <div class="head" style="font-size: 1.6rem">天赋抽卡</div>
             <button id="random" class="mainbtn" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);"">10连抽！</button>
             <ul id="talents" class="selectlist"></ul>
-            <button id="next" class="mainbtn">请选择3个</button>
+            <button id="next" class="mainbtn">请选择4个</button>
         </div>
         `);
 
@@ -218,12 +218,12 @@ class App{
                             if(li.hasClass('selected')) {
                                 li.removeClass('selected')
                                 this.#talentSelected.delete(talent);
-                                if(this.#talentSelected.size<3) {
-                                    talentPage.find('#next').text('请选择3个')
+                                if(this.#talentSelected.size<4) {
+                                    talentPage.find('#next').text('请选择4个')
                                 }
                             } else {
-                                if(this.#talentSelected.size==3) {
-                                    this.hint('只能选3个天赋');
+                                if(this.#talentSelected.size==4) {
+                                    this.hint('只能选4个天赋');
                                     return;
                                 }
 
@@ -254,8 +254,8 @@ class App{
         talentPage
             .find('#next')
             .click(()=>{
-                if(this.#talentSelected.size!=3) {
-                    this.hint('请选择3个天赋');
+                if(this.#talentSelected.size!=4) {
+                    this.hint('请选择4个天赋');
                     return;
                 }
                 talentPage.find('#next').hide()
